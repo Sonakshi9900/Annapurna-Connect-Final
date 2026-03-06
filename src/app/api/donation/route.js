@@ -1,15 +1,20 @@
 import { Novu } from "@novu/node";
 
-const novu = new Novu(process.env.NOVU_API_KEY);
-
 export async function POST(req) {
+  // This securely grabs your key from Render
+  const novu = new Novu(process.env.NOVU_SECRET_KEY);
 
-  await novu.trigger("food-available", {
-    to: { subscriberId: "ngo1" },
-    payload: {
-      message: "New food donation available"
-    }
-  });
+  try {
+    await novu.trigger("food-available", {
+      to: { subscriberId: "ngo1" },
+      payload: {
+        message: "New food donation available"
+      }
+    });
 
-  return Response.json({ success: true });
+    return Response.json({ success: true });
+  } catch (error) {
+    console.error("Novu Error:", error);
+    return Response.json({ success: false, error: "Failed to send notification" }, { status: 500 });
+  }
 }
