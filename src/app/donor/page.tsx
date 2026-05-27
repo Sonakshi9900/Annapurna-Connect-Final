@@ -1,82 +1,56 @@
 "use client";
-import { useState } from "react";
 
-export default function SettingsPage() {
-  const [notifications, setNotifications] = useState(true);
-  const [emailAlerts, setEmailAlerts] = useState(false);
+import React from "react";
+import { Package, Clock, CheckCircle2, TrendingUp } from "lucide-react";
 
+export default function DonorDashboard() {
   return (
-    <div className="p-6 max-w-2xl mx-auto space-y-6">
-      <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Settings</h1>
+    <div className="p-6 space-y-6">
+      <div>
+        <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Welcome back, Sonakshi 👋</h1>
+        <p className="text-gray-500 dark:text-slate-400 mt-1">Here's your donation overview</p>
+      </div>
 
-      {/* Profile Settings */}
-      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow p-6 space-y-4">
-        <h2 className="text-lg font-semibold text-gray-700 dark:text-slate-200">Profile Information</h2>
+      {/* Stats Cards */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {[
+          { icon: Package, label: "Total Donations", value: "24", color: "text-green-500", bg: "bg-green-50 dark:bg-green-900/20" },
+          { icon: Clock, label: "Active", value: "3", color: "text-orange-500", bg: "bg-orange-50 dark:bg-orange-900/20" },
+          { icon: CheckCircle2, label: "Delivered", value: "20", color: "text-blue-500", bg: "bg-blue-50 dark:bg-blue-900/20" },
+          { icon: TrendingUp, label: "Meals Saved", value: "480", color: "text-purple-500", bg: "bg-purple-50 dark:bg-purple-900/20" },
+        ].map((stat, i) => (
+          <div key={i} className="bg-white dark:bg-slate-800 rounded-2xl shadow p-5 flex items-center gap-4">
+            <div className={`${stat.bg} p-3 rounded-xl`}>
+              <stat.icon className={`h-6 w-6 ${stat.color}`} />
+            </div>
+            <div>
+              <p className="text-2xl font-bold text-gray-800 dark:text-white">{stat.value}</p>
+              <p className="text-sm text-gray-500 dark:text-slate-400">{stat.label}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      {/* Recent Activity */}
+      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow p-6">
+        <h2 className="text-lg font-semibold text-gray-700 dark:text-slate-200 mb-4">Recent Donations</h2>
         <div className="space-y-3">
-          <div>
-            <label className="text-sm text-gray-500">Full Name</label>
-            <input type="text" placeholder="Sonakshi" className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 dark:bg-slate-700 dark:border-slate-600 dark:text-white" />
-          </div>
-          <div>
-            <label className="text-sm text-gray-500">Email</label>
-            <input type="email" placeholder="sonakshi@example.com" className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 dark:bg-slate-700 dark:border-slate-600 dark:text-white" />
-          </div>
-          <div>
-            <label className="text-sm text-gray-500">Phone Number</label>
-            <input type="tel" placeholder="+91 XXXXXXXXXX" className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 dark:bg-slate-700 dark:border-slate-600 dark:text-white" />
-          </div>
-          <button className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition">Save Changes</button>
+          {[
+            { name: "Leftover Party Buffet", date: "May 26, 2026", status: "Delivered", kg: "20 kg" },
+            { name: "100 Loaves of Bread", date: "May 23, 2026", status: "Delivered", kg: "15 kg" },
+            { name: "Vegetable Stew & Rice", date: "May 14, 2026", status: "Delivered", kg: "30 kg" },
+          ].map((item, i) => (
+            <div key={i} className="flex items-center justify-between py-3 border-b border-gray-100 dark:border-slate-700 last:border-0">
+              <div>
+                <p className="font-medium text-gray-800 dark:text-slate-100">{item.name}</p>
+                <p className="text-sm text-gray-400">{item.date} · {item.kg}</p>
+              </div>
+              <span className="text-xs font-semibold text-green-600 bg-green-50 dark:bg-green-900/30 px-3 py-1 rounded-full">
+                {item.status}
+              </span>
+            </div>
+          ))}
         </div>
-      </div>
-
-      {/* Password Change */}
-      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow p-6 space-y-4">
-        <h2 className="text-lg font-semibold text-gray-700 dark:text-slate-200">Change Password</h2>
-        <div className="space-y-3">
-          <div>
-            <label className="text-sm text-gray-500">Current Password</label>
-            <input type="password" placeholder="••••••••" className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 dark:bg-slate-700 dark:border-slate-600 dark:text-white" />
-          </div>
-          <div>
-            <label className="text-sm text-gray-500">New Password</label>
-            <input type="password" placeholder="••••••••" className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 dark:bg-slate-700 dark:border-slate-600 dark:text-white" />
-          </div>
-          <div>
-            <label className="text-sm text-gray-500">Confirm New Password</label>
-            <input type="password" placeholder="••••••••" className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 dark:bg-slate-700 dark:border-slate-600 dark:text-white" />
-          </div>
-          <button className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition">Update Password</button>
-        </div>
-      </div>
-
-      {/* Notifications */}
-      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow p-6 space-y-4">
-        <h2 className="text-lg font-semibold text-gray-700 dark:text-slate-200">Notifications</h2>
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-gray-700 dark:text-slate-200 font-medium">Push Notifications</p>
-            <p className="text-sm text-gray-400">Get notified about donation updates</p>
-          </div>
-          <button onClick={() => setNotifications(!notifications)} className={`w-12 h-6 rounded-full transition-colors ${notifications ? "bg-green-500" : "bg-gray-300"}`}>
-            <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform mx-0.5 ${notifications ? "translate-x-6" : "translate-x-0"}`} />
-          </button>
-        </div>
-        <div className="flex items-center justify-between">
-          <div>
-            <p className="text-gray-700 dark:text-slate-200 font-medium">Email Alerts</p>
-            <p className="text-sm text-gray-400">Receive donation summaries via email</p>
-          </div>
-          <button onClick={() => setEmailAlerts(!emailAlerts)} className={`w-12 h-6 rounded-full transition-colors ${emailAlerts ? "bg-green-500" : "bg-gray-300"}`}>
-            <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform mx-0.5 ${emailAlerts ? "translate-x-6" : "translate-x-0"}`} />
-          </button>
-        </div>
-      </div>
-
-      {/* Danger Zone */}
-      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow p-6 space-y-3 border border-red-100 dark:border-red-900">
-        <h2 className="text-lg font-semibold text-red-500">Danger Zone</h2>
-        <p className="text-sm text-gray-400">Once you delete your account, there is no going back.</p>
-        <button className="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition">Delete Account</button>
       </div>
     </div>
   );
