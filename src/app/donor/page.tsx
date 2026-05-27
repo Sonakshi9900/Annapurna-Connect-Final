@@ -1,93 +1,83 @@
 "use client";
+import { useState } from "react";
 
-import React, { useEffect, useState } from "react";
-import Link from "next/link";
-import { cn } from "@/lib/utils";
-import { Leaf, Moon, Sun, Menu, X } from "lucide-react";
-
-const buttonStyles = "inline-flex items-center justify-center rounded-xl font-medium transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary disabled:pointer-events-none disabled:opacity-50 active:scale-[0.98]";
-
-const variants = {
-  ghost: "hover:bg-slate-100 dark:hover:bg-slate-800 text-foreground h-9 px-4 text-sm",
-  primary: "bg-primary text-white hover:bg-primary-hover h-11 px-6 text-base"
-};
-
-export function Navbar() {
-  const [dark, setDark] = useState(false);
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const saved = localStorage.getItem("theme");
-    if (saved === "dark") {
-      document.documentElement.classList.add("dark");
-      setDark(true);
-    }
-  }, []);
-
-  const toggleDark = () => {
-    if (dark) {
-      document.documentElement.classList.remove("dark");
-      localStorage.setItem("theme", "light");
-    } else {
-      document.documentElement.classList.add("dark");
-      localStorage.setItem("theme", "dark");
-    }
-    setDark(!dark);
-  };
+export default function SettingsPage() {
+  const [notifications, setNotifications] = useState(true);
+  const [emailAlerts, setEmailAlerts] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur-md">
-      <div className="container mx-auto flex h-16 items-center justify-between px-4 md:px-6">
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 text-primary font-bold text-xl tracking-tight shrink-0 transition-transform hover:scale-105">
-          <Leaf className="h-6 w-6" />
-          <span>Annapurna</span>
-        </Link>
+    <div className="p-6 max-w-2xl mx-auto space-y-6">
+      <h1 className="text-2xl font-bold text-gray-800 dark:text-white">Settings</h1>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex gap-6 text-sm font-medium text-slate-600 dark:text-slate-300">
-          <Link href="#problem" className="hover:text-primary transition-colors">The Problem</Link>
-          <Link href="#how-it-works" className="hover:text-primary transition-colors">How it Works</Link>
-          <Link href="#impact" className="hover:text-primary transition-colors">Our Impact</Link>
-        </nav>
+      {/* Profile Settings */}
+      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow p-6 space-y-4">
+        <h2 className="text-lg font-semibold text-gray-700 dark:text-slate-200">Profile Information</h2>
+        <div className="space-y-3">
+          <div>
+            <label className="text-sm text-gray-500">Full Name</label>
+            <input type="text" placeholder="Sonakshi" className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 dark:bg-slate-700 dark:border-slate-600 dark:text-white" />
+          </div>
+          <div>
+            <label className="text-sm text-gray-500">Email</label>
+            <input type="email" placeholder="sonakshi@example.com" className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 dark:bg-slate-700 dark:border-slate-600 dark:text-white" />
+          </div>
+          <div>
+            <label className="text-sm text-gray-500">Phone Number</label>
+            <input type="tel" placeholder="+91 XXXXXXXXXX" className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 dark:bg-slate-700 dark:border-slate-600 dark:text-white" />
+          </div>
+          <button className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition">Save Changes</button>
+        </div>
+      </div>
 
-        {/* Right Side */}
-        <div className="flex items-center gap-3">
-          {/* Dark Mode Toggle */}
-          <button
-            onClick={toggleDark}
-            className="h-9 w-9 rounded-xl flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-            aria-label="Toggle dark mode"
-          >
-            {dark ? <Sun className="h-5 w-5 text-yellow-400" /> : <Moon className="h-5 w-5 text-slate-600" />}
+      {/* Password Change */}
+      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow p-6 space-y-4">
+        <h2 className="text-lg font-semibold text-gray-700 dark:text-slate-200">Change Password</h2>
+        <div className="space-y-3">
+          <div>
+            <label className="text-sm text-gray-500">Current Password</label>
+            <input type="password" placeholder="••••••••" className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 dark:bg-slate-700 dark:border-slate-600 dark:text-white" />
+          </div>
+          <div>
+            <label className="text-sm text-gray-500">New Password</label>
+            <input type="password" placeholder="••••••••" className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 dark:bg-slate-700 dark:border-slate-600 dark:text-white" />
+          </div>
+          <div>
+            <label className="text-sm text-gray-500">Confirm New Password</label>
+            <input type="password" placeholder="••••••••" className="w-full mt-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400 dark:bg-slate-700 dark:border-slate-600 dark:text-white" />
+          </div>
+          <button className="bg-green-500 text-white px-6 py-2 rounded-lg hover:bg-green-600 transition">Update Password</button>
+        </div>
+      </div>
+
+      {/* Notifications */}
+      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow p-6 space-y-4">
+        <h2 className="text-lg font-semibold text-gray-700 dark:text-slate-200">Notifications</h2>
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-gray-700 dark:text-slate-200 font-medium">Push Notifications</p>
+            <p className="text-sm text-gray-400">Get notified about donation updates</p>
+          </div>
+          <button onClick={() => setNotifications(!notifications)} className={`w-12 h-6 rounded-full transition-colors ${notifications ? "bg-green-500" : "bg-gray-300"}`}>
+            <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform mx-0.5 ${notifications ? "translate-x-6" : "translate-x-0"}`} />
           </button>
-
-          <Link href="/login" className={cn(buttonStyles, variants.ghost, "hidden sm:inline-flex")}>
-            Log in
-          </Link>
-          <Link href="/role-selection" className={cn(buttonStyles, variants.primary)}>
-            Get Started
-          </Link>
-
-          {/* Mobile Menu Button */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden h-9 w-9 rounded-xl flex items-center justify-center hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
-          >
-            {menuOpen ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
+        </div>
+        <div className="flex items-center justify-between">
+          <div>
+            <p className="text-gray-700 dark:text-slate-200 font-medium">Email Alerts</p>
+            <p className="text-sm text-gray-400">Receive donation summaries via email</p>
+          </div>
+          <button onClick={() => setEmailAlerts(!emailAlerts)} className={`w-12 h-6 rounded-full transition-colors ${emailAlerts ? "bg-green-500" : "bg-gray-300"}`}>
+            <div className={`w-5 h-5 bg-white rounded-full shadow transform transition-transform mx-0.5 ${emailAlerts ? "translate-x-6" : "translate-x-0"}`} />
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
-      {menuOpen && (
-        <div className="md:hidden border-t border-border bg-background px-4 py-4 space-y-2">
-          <Link href="#problem" className="block py-2 text-sm font-medium hover:text-primary transition-colors" onClick={() => setMenuOpen(false)}>The Problem</Link>
-          <Link href="#how-it-works" className="block py-2 text-sm font-medium hover:text-primary transition-colors" onClick={() => setMenuOpen(false)}>How it Works</Link>
-          <Link href="#impact" className="block py-2 text-sm font-medium hover:text-primary transition-colors" onClick={() => setMenuOpen(false)}>Our Impact</Link>
-          <Link href="/login" className="block py-2 text-sm font-medium hover:text-primary transition-colors" onClick={() => setMenuOpen(false)}>Log in</Link>
-        </div>
-      )}
-    </header>
+      {/* Danger Zone */}
+      <div className="bg-white dark:bg-slate-800 rounded-2xl shadow p-6 space-y-3 border border-red-100 dark:border-red-900">
+        <h2 className="text-lg font-semibold text-red-500">Danger Zone</h2>
+        <p className="text-sm text-gray-400">Once you delete your account, there is no going back.</p>
+        <button className="bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition">Delete Account</button>
+      </div>
+    </div>
   );
 }
