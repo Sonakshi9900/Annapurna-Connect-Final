@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
-import { Button } from "../ui/Button";
+// Humne buttonVariants ko yahan import kiya hai
+import { buttonVariants } from "../ui/Button"; 
 import { Leaf } from "lucide-react";
 
 export function Navbar() {
@@ -11,18 +12,28 @@ export function Navbar() {
                     <Leaf className="h-6 w-6" />
                     <span>Annapurna</span>
                 </Link>
+                
                 <nav className="hidden md:flex gap-6 text-sm font-medium text-slate-600 dark:text-slate-300">
                     <Link href="#problem" className="hover:text-primary transition-colors">The Problem</Link>
                     <Link href="#how-it-works" className="hover:text-primary transition-colors">How it Works</Link>
                     <Link href="#impact" className="hover:text-primary transition-colors">Our Impact</Link>
                 </nav>
+
                 <div className="flex items-center gap-4">
-                    <Button variant="ghost" className="hidden sm:inline-flex" asChild>
-                        <Link href="/login">Log in</Link>
-                    </Button>
-                    <Button asChild>
-                        <Link href="/role-selection">Get Started</Link>
-                    </Button>
+                    {/* Yahan humne Button component hatakar buttonVariants ka use kiya hai */}
+                    <Link 
+                        href="/login" 
+                        className={buttonVariants({ variant: "ghost" }) + " hidden sm:inline-flex"}
+                    >
+                        Log in
+                    </Link>
+                    
+                    <Link 
+                        href="/role-selection" 
+                        className={buttonVariants({ variant: "default" })}
+                    >
+                        Get Started
+                    </Link>
                 </div>
             </div>
         </header>
